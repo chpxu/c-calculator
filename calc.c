@@ -116,7 +116,6 @@ int main()
         }
         else
         {
-
           long div = input1 / input2;
           printf("%ld\n", div);
         }
