@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 long power(long int a, long int b)
 {
@@ -43,6 +44,9 @@ long isprime(long k)
 }
 int main()
 {
+  char *input = NULL; // Pointer to dynamically allocated memory
+  size_t input_size = 0;
+
   long int input1;
   long int input2;
   printf("Welcome to the Calculator! Please make a choice:\n");
@@ -55,55 +59,85 @@ int main()
     printf("5 - Power.\n");
     printf("6 - Check if prime.\n");
     printf("7 - Exit.\n");
-    printf("Input your choice:\n");
+    printf("Input your choice:");
 
     char c = getchar();
+    while (getchar() != '\n')
+    {
+    };
     if (c == '7')
     {
       exit(0);
     }
-    printf("Input your numbers, separated by one space:\n");
-    printf("Your numbers:");
-    if (scanf(" %ld %ld", &input1, &input2) == 2)
+
+    if (c >= '1' && c <= '6')
     {
-      printf("First number: %ld\n", input1);
-      printf("Second number: %ld\n", input2);
+
+      printf("Input your numbers, separated by one space:\n");
+      if (getline(&input, &input_size, stdin) == -1)
+      {
+        break;
+      }
+
+      size_t len = strlen(input);
+      if (len > 0 && input[len - 1] == '\n')
+      {
+        input[len - 1] = '\0';
+      }
+      if (sscanf(input, "%ld %ld", &input1, &input2) == 2)
+      {
+        printf("Input: %ld and %ld\n", input1, input2);
+      }
+      else
+      {
+        printf("Invalid input. Please enter two integers separated by a space.\n");
+      }
+
+      if (c == '1')
+      {
+        long int sum = input1 + input2;
+        printf("%ld\n", sum);
+      }
+      else if (c == '2')
+      {
+        long int subtract = input1 - input2;
+        printf("%ld\n", subtract);
+      }
+      else if (c == '3')
+      {
+        long int prod = input1 * input2;
+        printf("%ld\n", prod);
+      }
+      else if (c == '4')
+      {
+        if (input2 == 0)
+        {
+          printf("Cannot divide by 0");
+        }
+        else
+        {
+
+          long div = input1 / input2;
+          printf("%ld\n", div);
+        }
+      }
+      else if (c == '5')
+      {
+        long pow = power(input1, input2);
+        printf("%ld\n", pow);
+      }
+      else if (c == '6')
+      {
+        printf("Is input1 prime: %ld\n", isprime(input1));
+        printf("Is input2 prime: %ld\n", isprime(input2));
+      }
     }
     else
     {
-      printf("Failed to read integer.\n");
-    }
-    if (c == '1')
-    {
-      long int sum = input1 + input2;
-      printf("%ld\n", sum);
-    }
-    else if (c == '2')
-    {
-      long int subtract = input1 - input2;
-      printf("%ld\n", subtract);
-    }
-    else if (c == '3')
-    {
-      long int prod = input1 * input2;
-      printf("%ld\n", prod);
-    }
-    else if (c == '4')
-    {
-      long div = input1 / input2;
-      printf("%ld\n", div);
-    }
-    else if (c == '5')
-    {
-      long pow = power(input1, input2);
-      printf("%ld\n", pow);
-    }
-    else if (c == '6')
-    {
-      printf("Is input1 prime: %ld\n", isprime(input1));
-      printf("Is input2 prime: %ld\n", isprime(input2));
+      printf("This is not a valid choice. Please make another choice.\n");
+      continue;
     }
   }
-
+  free(input);
   return 0;
 }
