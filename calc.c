@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 
 long power(long int a, long int b)
 {
@@ -45,21 +45,26 @@ int main()
 {
   long int input1;
   long int input2;
+  printf("Welcome to the Calculator! Please make a choice:\n");
   while (1)
   {
-    printf("Welcome to the Calculator! Please make a choice:\n");
     printf("1 - Add.\n");
     printf("2 - Subtract.\n");
     printf("3 - Multiply.\n");
     printf("4 - Divide.\n");
     printf("5 - Power.\n");
     printf("6 - Check if prime.\n");
-    printf("Input your choice:");
+    printf("7 - Exit.\n");
+    printf("Input your choice:\n");
 
     char c = getchar();
+    if (c == '7')
+    {
+      exit(0);
+    }
     printf("Input your numbers, separated by one space:\n");
     printf("Your numbers:");
-    if (scanf("%ld %ld", &input1, &input2) == 2)
+    if (scanf(" %ld %ld", &input1, &input2) == 2)
     {
       printf("First number: %ld\n", input1);
       printf("Second number: %ld\n", input2);
@@ -71,27 +76,27 @@ int main()
     if (c == '1')
     {
       long int sum = input1 + input2;
-      printf("%ld", sum);
+      printf("%ld\n", sum);
     }
     else if (c == '2')
     {
       long int subtract = input1 - input2;
-      printf("%ld", subtract);
+      printf("%ld\n", subtract);
     }
     else if (c == '3')
     {
       long int prod = input1 * input2;
-      printf("%ld", prod);
+      printf("%ld\n", prod);
     }
     else if (c == '4')
     {
       long div = input1 / input2;
-      printf("%ld", div);
+      printf("%ld\n", div);
     }
     else if (c == '5')
     {
       long pow = power(input1, input2);
-      printf("%ld", pow);
+      printf("%ld\n", pow);
     }
     else if (c == '6')
     {
